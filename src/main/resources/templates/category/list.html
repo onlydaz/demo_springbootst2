@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Danh sách Categories</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-    <script src="/static/js/script.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}"></script>
 </head>
 <body>
     <div th:replace="~{layouts/header :: header}"></div>
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="category : ${list}">
+                <tr th:each="category : ${categories}">
                     <td th:text="${category.id}"></td>
                     <td th:text="${category.name}"></td>
                     <td th:text="${category.images}"></td>
