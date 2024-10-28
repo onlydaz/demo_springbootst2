@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Categories</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/script.js"></script>
+</head>
+<body>
+    <div th:replace="~{layouts/header :: header}"></div>
+
+    <div>
+        <h2>Danh sách Categories</h2>
+        <a href="/categories/add">Thêm mới</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên danh mục</th>
+                    <th>Hình ảnh</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="category : ${list}">
+                    <td th:text="${category.id}"></td>
+                    <td th:text="${category.name}"></td>
+                    <td th:text="${category.images}"></td>
+                    <td th:text="${category.status == 1 ? 'Hoạt động' : 'Không hoạt động'}"></td>
+                    <td>
+                        <a th:href="@{/categories/edit/{id}(id=${category.id})}">Chỉnh sửa</a>
+                        <a class="delete-btn" th:href="@{/categories/delete/{id}(id=${category.id})}">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="~{layouts/footer :: footer}"></div>
+</body>
+</html>
