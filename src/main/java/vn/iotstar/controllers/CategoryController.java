@@ -10,7 +10,7 @@ import vn.iotstar.service.CategoryService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/categories") // Không có "/admin"
+@RequestMapping("/categories")
 public class CategoryController {
 
     @Autowired
@@ -20,37 +20,42 @@ public class CategoryController {
     public String listCategories(Model model) {
         List<Category> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
-        return "category/list"; // Đường dẫn tới tệp list.html
+        return "category/list";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("category", new Category());
-        return "category/add"; // Đường dẫn tới tệp add.html
+        return "category/add";
     }
+
 
     @PostMapping("/add")
     public String addCategory(@ModelAttribute Category category) {
         categoryService.save(category);
-        return "redirect:/categories"; // Quay lại danh sách danh mục
+        return "redirect:/categories";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Category category = categoryService.findById(id).orElse(null);
+        if (category == null) {
+            return "redirect:/categories";
+        }
         model.addAttribute("category", category);
-        return "category/edit"; // Đường dẫn tới tệp edit.html
+        return "category/edit";
     }
 
     @PostMapping("/edit")
     public String editCategory(@ModelAttribute Category category) {
         categoryService.save(category);
-        return "redirect:/categories"; // Quay lại danh sách danh mục
+        return "redirect:/categories";
     }
+
 
     @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteById(id);
-        return "redirect:/categories"; // Quay lại danh sách danh mục
+        return "redirect:/categories";
     }
 }
